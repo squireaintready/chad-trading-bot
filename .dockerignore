@@ -1,0 +1,12 @@
+.env
+.discord-token
+tools/executor.py
+local-executor.py
+tools/.bot-state.json
+tools/mega-backtest-data-complete.json
+logs/
+__pycache__/
+*.pyc
+.claude/
+.git/
+com.chad.tradingbot.plist

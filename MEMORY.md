@@ -111,7 +111,7 @@ Buy after sustained selling pressure (consecutive red hourly candles), exit on b
 **⚠️ See PROP_ACCOUNT.md for immutable rules ⚠️**
 
 - **Platform:** breakoutprop.com
-- **Account #:** 673129
+- **Account #:** REDACTED
 - **Type:** Classic eval, 1 Step, $100K margin
 - **Leverage:** BTC/ETH 5x, SOL 2x
 - **Goal:** +$10,000 (10%)

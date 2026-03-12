@@ -188,7 +188,7 @@ Example: `BS3` = BTC anchor → SOL trade, variant 3
 | Setting | Value |
 |---------|-------|
 | Platform | breakoutprop.com |
-| Account # | 673129 |
+| Account # | REDACTED |
 | Type | Classic eval, 1 Step |
 | Size | $100,000 margin |
 | Goal | +$10,000 (10%) |

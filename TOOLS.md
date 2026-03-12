@@ -31,7 +31,7 @@
 
 ### Account
 - Platform: breakoutprop.com
-- Account: #673129
+- Account: #REDACTED
 - Watchlist: "chad" with BTC, ETH, SOL
 
 ---

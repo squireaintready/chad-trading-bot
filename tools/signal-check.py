@@ -258,22 +258,36 @@ def analyze_tier(tier, candle_cache, now, today):
         result['reason'] = f'{anchor["range_pct"]:.1f}% < {tier["min_rng"]}% threshold'
         return result
     
-    # Anchor formed! Count reds in window
+    # Anchor formed! Count reds and greens in CLOSED candles only
+    # Current hour's candle is still open — exclude it
     reds = 0
+    greens_in_closed = 0
     for off in range(tier['win']):
         h = anchor_h + off
-        if h in candles and candles[h].get('date') == today and candles[h]['red']:
-            reds += 1
-    
+        if h >= now.hour:
+            continue  # Candle not closed yet — skip
+        if h in candles and candles[h].get('date') == today:
+            if candles[h]['red']:
+                reds += 1
+            else:
+                greens_in_closed += 1
+
     result['reds'] = reds
     result['reds_needed'] = tier['rt']
-    
+
+    # Max possible reds = current reds + remaining unclosed hours
+    window_end = anchor_h + tier['win']
+    remaining_hours = max(0, window_end - now.hour)
+    max_possible_reds = reds + remaining_hours
+
     if reds >= tier['rt']:
         result['status'] = 'triggered'
         result['reason'] = f'{reds}/{tier["rt"]} reds ✓'
+    elif max_possible_reds < tier['rt']:
+        # Too many greens — impossible to reach threshold
+        result['status'] = 'dead'
+        result['reason'] = f'{reds}/{tier["rt"]} reds, {greens_in_closed} greens killed it'
     else:
-        # Check if still possible (window still open)
-        window_end = anchor_h + tier['win']
         if now.hour < window_end:
             result['status'] = 'building'
             result['reason'] = f'{reds}/{tier["rt"]} reds, waiting'

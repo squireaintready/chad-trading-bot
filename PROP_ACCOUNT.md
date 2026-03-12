@@ -4,7 +4,7 @@
 
 ### Account Details
 - **Platform:** breakoutprop.com
-- **Account #:** 666825
+- **Account #:** REDACTED
 - **Type:** Classic eval, 1 Step
 - **Account Size:** $100,000 margin
 
