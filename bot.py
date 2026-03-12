@@ -236,7 +236,22 @@ def main():
     if not token:
         print("No token found! Set DISCORD_BOT_TOKEN in .env")
         return
-    bot.run(token)
+
+    import time
+    max_retries = 5
+    for attempt in range(max_retries):
+        try:
+            bot.run(token)
+            break  # Clean exit
+        except discord.errors.HTTPException as e:
+            if e.status == 429:
+                wait = min(30 * (attempt + 1), 300)  # 30s, 60s, 90s... up to 5min
+                print(f"Rate limited by Discord. Waiting {wait}s before retry ({attempt+1}/{max_retries})...", flush=True)
+                time.sleep(wait)
+            else:
+                raise
+    else:
+        print("Failed to connect after max retries. Exiting.", flush=True)
 
 if __name__ == "__main__":
     main()
